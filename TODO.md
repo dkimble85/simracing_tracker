@@ -8,8 +8,11 @@ Features that I would like to add to the iRacing Tracker app:
   - Show Times in a table with filtering based on sim game, track
   - Sorting available on name of game, track, car, and time
   - Add New Time
+- Add Authentication
 - Deploy app to Netlify
 - Write Unit Tests
+- Caching? (Redis)
+- Add GraphQL for API calls?
 - Deploy with Docker?
 
 ## Bugs

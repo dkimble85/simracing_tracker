@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Time {
+  id          String   @id @default(uuid())
+  game        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  time        String   
+  track       String
+  vehicle     String
+}

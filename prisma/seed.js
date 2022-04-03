@@ -1,10 +1,10 @@
 const { PrismaClient } = require('@prisma/client');
-const db = new PrismaClient();
+const prisma = new PrismaClient();
 
 async function seed() {
   await Promise.all(
     getTimes().map((time) => {
-      return db.time.create({ data: time });
+      return prisma.time.create({ data: time });
     })
   );
 }

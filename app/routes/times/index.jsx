@@ -3,12 +3,8 @@ import { db } from '../../utils/db.server';
 
 export const loader = async () => {
   const data = {
-    // can just use findMany() to find all posts or you can define what is retrieved and how it is returned
-    times: await db.time.findMany({
-      take: 20,
-      select: { id: true, time: true, track: true, game: true, vehicle: true, createdAt: true },
-      orderBy: { game: 'desc' },
-    }),
+    // can just use findMany() to find all times or you can define what is retrieved and how it is returned
+    times: await db.trackTimes.findMany(),
   };
 
   return data;

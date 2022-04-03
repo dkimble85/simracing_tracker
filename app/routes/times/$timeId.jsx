@@ -3,7 +3,7 @@ import { Link, useLoaderData, useParams } from '@remix-run/react';
 import { db } from '../../utils/db.server';
 
 export const loader = async ({ params }) => {
-  const time = await db.time.findUnique({
+  const time = await db.trackTimes.findUnique({
     where: { id: params.timeId },
   });
 
@@ -16,13 +16,13 @@ export const loader = async ({ params }) => {
 export const action = async ({ request, params }) => {
   const form = await request.formData();
   if (form.get('_method') === 'delete') {
-    const post = await db.time.findUnique({
+    const post = await db.trackTimes.findUnique({
       where: { id: params.timeId },
     });
 
     if (!post) throw new Error('Time not found');
 
-    await db.time.delete({ where: { id: params.timeId } });
+    await db.trackTimes.delete({ where: { id: params.timeId } });
 
     return redirect('/times');
   }

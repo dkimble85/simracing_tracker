@@ -1,19 +1,19 @@
 generator client {
-  provider = "prisma-client-js"
-  output = "../node_modules/.prisma/client"
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-model Time {
-  id          String   @id @default(uuid())
+model TrackTimes {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   game        String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  time        String   
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  time        String
   track       String
   vehicle     String
 }

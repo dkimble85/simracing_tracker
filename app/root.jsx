@@ -1,4 +1,4 @@
-import { Links, Link, LiveReload, Meta, Outlet } from '@remix-run/react';
+import { Links, NavLink, LiveReload, Meta, Outlet } from '@remix-run/react';
 
 import tailwindstyles from './tailwind.css';
 import styles from './styles/global.css';
@@ -67,24 +67,30 @@ const Header = () => {
 };
 
 const SideNav = () => {
+  let activeStyle = {
+    textDecoration: 'underline',
+  };
+
   return (
     <div className="w-40 h-full shadow-md bg-white absolute">
       <ul className="relative pt-3">
         <li className="relative">
-          <Link
+          <NavLink
             className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-300 transition duration-300 ease-in-out"
             to="/"
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Home
-          </Link>
+          </NavLink>
         </li>
         <li className="relative">
-          <Link
+          <NavLink
             className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-300 transition duration-300 ease-in-out"
             to="/times"
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Times
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </div>

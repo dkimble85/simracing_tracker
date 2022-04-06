@@ -1,5 +1,7 @@
 import { Links, Link, LiveReload, Meta, Outlet } from '@remix-run/react';
-import styles from '~/styles/global.css';
+
+import tailwindstyles from './tailwind.css';
+import styles from './styles/global.css';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -9,7 +11,10 @@ export const meta = () => ({
   keywords: 'react, remix, iRacing, javascript',
 });
 
-export const links = () => [{ rel: 'stylesheet', href: styles }];
+export const links = () => [
+  { rel: 'stylesheet', href: styles },
+  { rel: 'stylesheet', href: tailwindstyles },
+];
 
 export default function App() {
   return (

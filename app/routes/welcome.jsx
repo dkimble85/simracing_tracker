@@ -3,7 +3,7 @@ import { Link } from '@remix-run/react';
 const Welcome = () => {
   return (
     <>
-      <h1>Welcome!</h1>
+      <h1 className="text-6xl font-normal leading-normal mt-0 mb-2">Welcome!</h1>
       <div>
         <p>
           Have you ever wanted to see what your best lap times were in different sim racing games?

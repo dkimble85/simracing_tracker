@@ -45,18 +45,54 @@ const Document = ({ children, title }) => {
 const Layout = ({ children }) => {
   return (
     <>
-      <nav className="navbar">
-        <Link to="/" className="logo">
-          Home
-        </Link>
+      <Header />
+      <div className="flex">
+        <SideNav />
+        <Content>{children}</Content>
+      </div>
+    </>
+  );
+};
 
+const Header = () => {
+  return (
+    <div className="flex">
+      <nav className="navbar grow flex-row-reverse">
         <ul className="nav">
           <li>Logged in user</li>
         </ul>
       </nav>
-      <div className="container">{children}</div>
-    </>
+    </div>
   );
+};
+
+const SideNav = () => {
+  return (
+    <div className="w-40 h-full shadow-md bg-white absolute">
+      <ul className="relative pt-3">
+        <li className="relative">
+          <Link
+            className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-300 transition duration-300 ease-in-out"
+            to="/"
+          >
+            Home
+          </Link>
+        </li>
+        <li className="relative">
+          <Link
+            className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-300 transition duration-300 ease-in-out"
+            to="/times"
+          >
+            Times
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+export const Content = ({ children }) => {
+  return <div className="order-2 ml-40 px-8 pt-3 grow">{children}</div>;
 };
 
 export function ErrorBoundary({ error }) {

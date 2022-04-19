@@ -23,18 +23,57 @@ const Time = () => {
           Post New Time
         </Link>
       </div>
-      <ul className="times-list">
-        {times.map((time) => (
-          <li key={time.id}>
-            <Link to={time.id}>
-              <h3>{time.time}</h3>
-              {time.track}
-              <br />
-              {time.vehicle}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-col">
+        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead className="bg-slate-300 border-b">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="text-large font-large text-black px-6 py-4 text-left"
+                    >
+                      Game
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-large font-large text-black px-6 py-4 text-left"
+                    >
+                      Track
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-large font-large text-black px-6 py-4 text-left"
+                    >
+                      Vehicle
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-large font-large text-black px-6 py-4 text-left"
+                    >
+                      Time
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {times.map((time) => (
+                    <tr
+                      key={time.id}
+                      className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100 [padding:0.75rem]"
+                    >
+                      <td>{time.game}</td>
+                      <td>{time.track}</td>
+                      <td>{time.vehicle}</td>
+                      <td>{time.time}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

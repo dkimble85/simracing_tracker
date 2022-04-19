@@ -1,7 +1,7 @@
 import { Links, NavLink, LiveReload, Meta, Outlet } from '@remix-run/react';
 
 import tailwindstyles from './tailwind.css';
-import styles from './styles/global.css';
+import styles from './styles/shared.css';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -57,7 +57,7 @@ const Layout = ({ children }) => {
 const Header = () => {
   return (
     <div className="flex">
-      <nav className="navbar grow flex-row-reverse">
+      <nav className="header grow flex-row-reverse">
         <ul className="nav">
           <li>Logged in user</li>
         </ul>
@@ -68,7 +68,9 @@ const Header = () => {
 
 const SideNav = () => {
   let activeStyle = {
-    textDecoration: 'underline',
+    backgroundColor: '#facc15',
+    fontSize: '16px',
+    fontWeight: 'bold',
   };
 
   return (
@@ -76,7 +78,7 @@ const SideNav = () => {
       <ul className="relative pt-3">
         <li className="relative">
           <NavLink
-            className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-300 transition duration-300 ease-in-out"
+            className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out"
             to="/"
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
@@ -85,7 +87,7 @@ const SideNav = () => {
         </li>
         <li className="relative">
           <NavLink
-            className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-300 transition duration-300 ease-in-out"
+            className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out"
             to="/times"
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >

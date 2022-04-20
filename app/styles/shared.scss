@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -55,7 +62,7 @@ $color-action: #facc15;
   }
 
   ul li a {
-    color: #000;
+    color: #fff;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: bold;
@@ -67,9 +74,10 @@ $color-action: #facc15;
   }
 }
 
-.btn {
+.btn,
+#submitBtn [type='button'] {
   display: inline-block;
-  background: $color-action;
+  background-color: $color-action;
   color: $color-secondary;
   border: none;
   padding: 10px 20px;
@@ -137,6 +145,8 @@ $color-action: #facc15;
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
+  border: 1px black solid;
+  @include border-radius(5px);
 }
 
 .form-control textarea {

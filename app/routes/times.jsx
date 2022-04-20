@@ -1,6 +1,6 @@
 import { Outlet } from '@remix-run/react';
 
-const TrackTimes = () => {
+const Times = () => {
   return (
     <>
       <Outlet />
@@ -8,4 +8,4 @@ const TrackTimes = () => {
   );
 };
 
-export default TrackTimes;
+export default Times;

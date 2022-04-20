@@ -48,7 +48,7 @@ p {
   color: #ffffff;
 }
 .header ul li a {
-  color: #000;
+  color: #fff;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: bold;
@@ -58,9 +58,10 @@ p {
   border-bottom: 1px solid #333;
 }
 
-.btn {
+.btn,
+#submitBtn [type=button] {
   display: inline-block;
-  background: #facc15;
+  background-color: #facc15;
   color: #000000;
   border: none;
   padding: 10px 20px;
@@ -128,6 +129,11 @@ p {
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
+  border: 1px black solid;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .form-control textarea {

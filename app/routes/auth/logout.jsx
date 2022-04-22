@@ -1,5 +1,10 @@
-const Logout = () => {
-  return <h1>Logout</h1>;
+import { redirect } from '@remix-run/node';
+import { logout } from '../../utils/session.server';
+
+export const action = async ({ request }) => {
+  return logout(request);
 };
 
-export default Logout;
+export const loader = async () => {
+  return redirect('/');
+};

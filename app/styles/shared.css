@@ -178,34 +178,33 @@ p {
 }
 
 .auth-container {
-  max-width: 600px;
+  max-width: 90%;
   margin: auto;
 }
-
 .auth-container h1 {
   text-align: center;
 }
-
 .auth-container .pageHeader {
   display: block;
 }
-
 .auth-container fieldset {
   padding: 15px;
   border-radius: 5px;
 }
-
 .auth-container fieldset label {
   margin-right: 10px;
 }
+.auth-container input {
+  max-width: 50%;
+}
 
-.inline-link {
+.auth-container .inline-link {
   color: #000000;
   text-decoration: underline;
   font-weight: bolder;
   font-size: larger;
 }
-.inline-link:hover {
+.auth-container .inline-link:hover {
   background-color: #facc15;
   color: #000000;
   font-weight: bolder;

@@ -9,29 +9,9 @@ const validate = (field, length) => {
   }
 };
 
-// const validateGame = (game) => {
-//   if (typeof game !== 'string' || game.length < 3) {
-//     return 'Game should be at least 3 characters long';
-//   }
-// };
-
-// const validateTrack = (track) => {
-//   if (typeof track !== 'string' || track.length < 3) {
-//     return 'Track should be at least 5 characters long';
-//   }
-// };
-
-// const validateVehicle = (vehicle) => {
-//   if (typeof vehicle !== 'string' || vehicle.length < 3) {
-//     return 'Vehicle should be at least 3 characters long';
-//   }
-// };
-
-// const validateTime = (time) => {
-//   if (typeof time !== 'string' || time.length < 5) {
-//     return 'Time should be at least 5 characters long';
-//   }
-// };
+const badRequest = (data) => {
+  return json(data, { status: 400 });
+};
 
 export const action = async ({ request }) => {
   const form = await request.formData();
@@ -56,11 +36,13 @@ export const action = async ({ request }) => {
     time: validate(time, 5),
   };
 
+  // Check if there are fields errors (validation) and return a bad request (400) with the field errors and values
   if (Object.values(fieldErrors).some(Boolean)) {
     console.log(fieldErrors);
-    return json({ fieldErrors, fields }, { status: 400 });
+    return badRequest({ fieldErrors, fields });
   }
 
+  // Action to create new Track Times in DB
   const trackTime = await db.trackTimes.create({ data: fields });
 
   return redirect(`/times/${trackTime.id}`);

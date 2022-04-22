@@ -191,28 +191,31 @@ $color-action: #facc15;
 }
 
 .auth-container {
-  max-width: 600px;
+  max-width: 90%;
   margin: auto;
-}
 
-.auth-container h1 {
-  text-align: center;
-}
+  h1 {
+    text-align: center;
+  }
 
-.auth-container .pageHeader {
-  display: block;
-}
+  .pageHeader {
+    display: block;
+  }
 
-.auth-container fieldset {
-  padding: 15px;
-  border-radius: 5px;
-}
+  fieldset {
+    padding: 15px;
+    border-radius: 5px;
+  }
 
-.auth-container fieldset label {
-  margin-right: 10px;
-}
+  fieldset label {
+    margin-right: 10px;
+  }
 
-.inline-link {
+  input {
+    max-width: 50%;
+  }
+}
+.auth-container .inline-link {
   color: $color-secondary;
   text-decoration: underline;
   font-weight: bolder;

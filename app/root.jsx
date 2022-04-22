@@ -1,17 +1,9 @@
 import { Links, Link, NavLink, LiveReload, Meta, Outlet, useLoaderData } from '@remix-run/react';
 import { db } from './utils/db.server';
+import { getUser } from './utils/session.server';
 
 import tailwindstyles from './tailwind.css';
 import styles from './styles/shared.css';
-
-export const loader = async () => {
-  const data = {
-    // can just use findMany() to find all times or you can define what is retrieved and how it is returned
-    user: await db.user.findFirst(),
-  };
-
-  return data;
-};
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -25,6 +17,14 @@ export const links = () => [
   { rel: 'stylesheet', href: tailwindstyles },
   { rel: 'stylesheet', href: styles },
 ];
+
+export const loader = async ({ request }) => {
+  const user = await getUser(request);
+  const data = {
+    user,
+  };
+  return data;
+};
 
 export default function App() {
   return (
@@ -71,11 +71,21 @@ const Header = () => {
     <div className="flex">
       <nav className="header grow flex-row-reverse">
         <ul className="nav">
-          <li>
-            <Link className="header-link" to="/auth/login">
-              Login
-            </Link>
-          </li>
+          {user ? (
+            <li>
+              <form action="/auth/logout" method="POST">
+                <button type="submit" className="btn">
+                  Logout {user.username}
+                </button>
+              </form>
+            </li>
+          ) : (
+            <li>
+              <Link className="header-link" to="/auth/login">
+                Login
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

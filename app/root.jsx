@@ -69,10 +69,10 @@ const Header = () => {
 
   return (
     <div className="flex">
-      <nav className="header grow flex-row-reverse">
-        <ul className="nav">
+      <nav className="flex grow flex-row-reverse justify-between items-center py-2 px-7 uppercase bg-black">
+        <ul className="flex justify-between items-center">
           {user ? (
-            <li>
+            <li className="ml-5 text-white">
               <form action="/auth/logout" method="POST">
                 <button type="submit" className="btn">
                   Logout {user.username}
@@ -80,8 +80,11 @@ const Header = () => {
               </form>
             </li>
           ) : (
-            <li>
-              <Link className="header-link" to="/auth/login">
+            <li className="ml-5 pr-2">
+              <Link
+                className="text-white uppercase text-md font-bold hover:text-zinc-600 hover:border-b-zinc-700"
+                to="/auth/login"
+              >
                 Login
               </Link>
             </li>

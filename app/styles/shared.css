@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -22,28 +22,28 @@ p {
   margin: 10px 0;
 }
 
-.container {
+/* .container {
   width: 100%;
   max-width: 90%;
   margin: auto;
   padding: 0 30px;
   background-color: #ffffff;
-}
+} */
 
-.header {
+/* .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #000000;
   padding: 10px 30px;
   text-transform: uppercase;
-}
-.header ul {
+} */
+/* .header ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.header li {
+} */
+/* .header li {
   margin-left: 20px;
   color: #ffffff;
 }
@@ -52,14 +52,14 @@ p {
   text-transform: uppercase;
   font-size: 14px;
   font-weight: bold;
-}
+} */
 .header ul li a:hover {
   color: #333;
   border-bottom: 1px solid #333;
 }
 
 .btn,
-#submitBtn [type=button] {
+#submitBtn [type='button'] {
   display: inline-block;
   background-color: #facc15;
   color: #000000;

@@ -15,7 +15,7 @@ const Time = () => {
 
   return (
     <>
-      <div className="page-header">
+      <div className="flex justify-between items-center mb-10">
         <h1>Times</h1>
         <Link to="/times/new" className="btn">
           Post New Time

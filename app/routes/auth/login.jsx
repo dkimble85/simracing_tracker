@@ -50,7 +50,7 @@ export const action = async ({ request }) => {
       }
 
       // Create Session
-      return createUserSession(user.id, '/times');
+      return createUserSession(user.id, '/');
     }
     case 'register': {
       // Check if user exists
@@ -91,20 +91,21 @@ const Login = () => {
   const actionData = useActionData();
 
   return (
-    <div className="auth-container">
-      <div className="page-header">
-        <h1 className="text-6xl font-normal leading-normal mt-0 mb-2">Login</h1>
+    <div className="max-w-full m-auto">
+      <div className="block">
+        <h1 className="text-6xl font-normal leading-normal mt-0 mb-2 text-center">Login</h1>
       </div>
 
-      <div className="page-content">
+      <div>
         <form method="POST">
-          <fieldset>
+          <fieldset className="p-4 rounded">
             <legend>Login or Register</legend>
-            <label>
+            <label className="mr-3">
               <input
                 type="radio"
                 name="loginType"
                 value="login"
+                className="max-w-1/2"
                 defaultChecked={
                   !actionData?.fields?.loginType || actionData?.fields?.loginType === 'login'
                 }
@@ -112,11 +113,12 @@ const Login = () => {
               Login
             </label>
 
-            <label>
+            <label className="mr-3">
               <input
                 type="radio"
                 name="loginType"
                 value="register"
+                className="max-w-1/2"
                 defaultChecked={actionData?.fields?.loginType === 'register'}
               />{' '}
               Register
@@ -130,7 +132,7 @@ const Login = () => {
               id="username"
               defaultValue={actionData?.fields?.username}
             />
-            <div className="error">
+            <div className="text-red">
               {actionData?.fieldErrors?.username ? (
                 <p className="form-validation-error" role="alert" id="username-error">
                   {actionData.fieldErrors.username}
@@ -147,7 +149,7 @@ const Login = () => {
               id="password"
               defaultValue={actionData?.fields?.password}
             />
-            <div className="error">
+            <div className="text-red">
               {actionData?.fieldErrors?.password ? (
                 <p className="form-validation-error" role="alert" id="password-error">
                   {actionData.fieldErrors.password}
@@ -156,7 +158,10 @@ const Login = () => {
             </div>
           </div>
 
-          <button className="btn" type="submit">
+          <button
+            className="block bg-yellow-400 text-black border-none rounded px-5 py-3 m-1 cursor-pointer no-underline text-base"
+            type="submit"
+          >
             Submit
           </button>
         </form>

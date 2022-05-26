@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 import { db } from './db.server';
 import { createCookieSessionStorage, redirect } from '@remix-run/node';
-import { NULL } from 'sass';
 
 // Login user
 export const login = async ({ username, password }) => {

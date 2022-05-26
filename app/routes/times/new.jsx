@@ -52,7 +52,7 @@ const NewTime = () => {
   const actionData = useActionData();
   return (
     <>
-      <div className="page-header">
+      <div className="flex justify-between items-center mb-10">
         <h1>Post New Time</h1>
         <Link to="/times" className="btn">
           Back
@@ -64,14 +64,14 @@ const NewTime = () => {
           <div className="form-control">
             <label htmlFor="game">Game</label>
             <input type="text" name="game" id="game" defaultValue={actionData?.fields?.game} />
-            <div className="error">
+            <div className="text-red">
               <p>{actionData?.fieldErrors?.game && actionData?.fieldErrors?.game}</p>
             </div>
           </div>
           <div className="form-control">
             <label htmlFor="track">Track</label>
             <input type="text" name="track" id="track" defaultValue={actionData?.fields?.track} />
-            <div className="error">
+            <div className="text-red">
               <p>{actionData?.fieldErrors?.track && actionData?.fieldErrors?.track}</p>
             </div>
           </div>
@@ -83,18 +83,22 @@ const NewTime = () => {
               id="vehicle"
               defaultValue={actionData?.fields?.vehicle}
             />
-            <div className="error">
+            <div className="text-red">
               <p>{actionData?.fieldErrors?.vehicle && actionData?.fieldErrors?.vehicle}</p>
             </div>
           </div>
           <div className="form-control">
             <label htmlFor="time">Time</label>
             <input type="text" name="time" id="time" defaultValue={actionData?.fields?.time} />
-            <div className="error">
+            <div className="text-red">
               <p>{actionData?.fieldErrors?.time && actionData?.fieldErrors?.time}</p>
             </div>
           </div>
-          <button id="submitBtn" type="submit" className="btn">
+          <button
+            id="submitBtn"
+            type="submit"
+            className="block bg-yellow-400 text-black border-none rounded px-5 py-3 m-1 cursor-pointer no-underline text-base"
+          >
             Add Time
           </button>
         </form>

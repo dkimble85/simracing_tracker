@@ -3,7 +3,6 @@ import { db } from './utils/db.server';
 import { getUser } from './utils/session.server';
 
 import tailwindstyles from './tailwind.css';
-import styles from './styles/shared.css';
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -13,10 +12,7 @@ export const meta = () => ({
   keywords: 'react, remix, iRacing, javascript',
 });
 
-export const links = () => [
-  { rel: 'stylesheet', href: tailwindstyles },
-  { rel: 'stylesheet', href: styles },
-];
+export const links = () => [{ rel: 'stylesheet', href: tailwindstyles }];
 
 export const loader = async ({ request }) => {
   const user = await getUser(request);
@@ -96,6 +92,8 @@ const Header = () => {
 };
 
 const SideNav = () => {
+  const { user } = useLoaderData();
+
   let activeStyle = {
     backgroundColor: '#facc15',
     fontSize: '16px',
@@ -114,15 +112,17 @@ const SideNav = () => {
             Home
           </NavLink>
         </li>
-        <li className="relative">
-          <NavLink
-            className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out"
-            to="/times"
-            style={({ isActive }) => (isActive ? activeStyle : undefined)}
-          >
-            Times
-          </NavLink>
-        </li>
+        {user && (
+          <li className="relative">
+            <NavLink
+              className="flex items-center text-sm py-4 px-12 h-12 overflow-hidden text-gray-800 text-ellipsis whitespace-nowrap hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out"
+              to="/times"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Times
+            </NavLink>
+          </li>
+        )}
       </ul>
     </div>
   );

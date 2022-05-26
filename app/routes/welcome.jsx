@@ -16,7 +16,10 @@ const Welcome = () => {
       <h2>Getting Started</h2>
       <p>
         First you will need to create an account. Please follow the{' '}
-        <Link to="/signup" className="inline-link">
+        <Link
+          to="/auth/signup"
+          className="text-black underline font-extrabold text-xl hover:bg-yellow-500 hover:text-black hover:font-extrabold"
+        >
           Sign-Up
         </Link>{' '}
         page to create your account in order to save you data.

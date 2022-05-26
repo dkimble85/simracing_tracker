@@ -33,7 +33,7 @@ function Time() {
 
   return (
     <div>
-      <div className="page-header">
+      <div className="flex justify-between items-center mb-10">
         <h1>Time {time.time}</h1>
         <Link to="/times" className="btn">
           Back
@@ -46,10 +46,12 @@ function Time() {
         <div>{time.game}</div>
       </div>
 
-      <div className="page-footer">
+      <div className="flex justify-between items-center mt-7">
         <form method="POST">
           <input type="hidden" name="_method" value="delete" />
-          <button className="btn btn-delete">Delete</button>
+          <button className="block border-none rounded m-1 cursor-pointer no-underline bg-red-900 text-white border-red-900 text-sm px-3 py-2">
+            Delete
+          </button>
         </form>
       </div>
     </div>

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -20,7 +21,7 @@ ul {
 
 p {
   margin: 10px 0;
-}
+} */
 
 /* .container {
   width: 100%;
@@ -53,12 +54,12 @@ p {
   font-size: 14px;
   font-weight: bold;
 } */
-.header ul li a:hover {
+/* .header ul li a:hover {
   color: #333;
   border-bottom: 1px solid #333;
-}
+} */
 
-.btn,
+/* .btn,
 #submitBtn [type='button'] {
   display: inline-block;
   background-color: #facc15;
@@ -71,48 +72,48 @@ p {
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
-}
+} */
 
-.btn-reverse {
+/* .btn-reverse {
   background: #fff;
   color: #000;
   border-color: #000;
-}
+} */
 
-.btn:focus {
+/* .btn:focus {
   outline: none;
 }
 
 .btn:active {
   transform: scale(0.98);
-}
-
+} */
+/* 
 .btn-block {
   display: block;
   width: 10%;
-}
+} */
 
-.btn-delete {
+/* .btn-delete {
   background: darkred;
   color: #fff;
   border-color: darkred;
   font-size: 13px;
   padding: 5px 10px;
-}
+} */
 
-.page-header {
+/* .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-}
+} */
 
-.page-footer {
+/* .page-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 30px;
-}
+} */
 
 .form-control {
   margin: 20px 0;
@@ -155,7 +156,7 @@ p {
   height: 20px;
 }
 
-.times-list {
+/* .times-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
@@ -171,34 +172,34 @@ p {
 
 .times-list li h3 {
   margin-bottom: 5px;
-}
-
+} */
+/* 
 .error {
   color: darkred;
-}
+} */
 
-.auth-container {
+/* .auth-container {
   max-width: 90%;
   margin: auto;
-}
-.auth-container h1 {
+} */
+/* .auth-container h1 {
   text-align: center;
-}
-.auth-container .pageHeader {
+} */
+/* .auth-container .pageHeader {
   display: block;
-}
-.auth-container fieldset {
+} */
+/* .auth-container fieldset {
   padding: 15px;
   border-radius: 5px;
-}
-.auth-container fieldset label {
+} */
+/* .auth-container fieldset label {
   margin-right: 10px;
-}
-.auth-container input {
+} */
+/* .auth-container input {
   max-width: 50%;
-}
+} */
 
-.auth-container .inline-link {
+/* .auth-container .inline-link {
   color: #000000;
   text-decoration: underline;
   font-weight: bolder;
@@ -208,6 +209,6 @@ p {
   background-color: #facc15;
   color: #000000;
   font-weight: bolder;
-}
+} */
 
 /*# sourceMappingURL=shared.css.map */

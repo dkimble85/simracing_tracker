@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -22,45 +22,46 @@ p {
   margin: 10px 0;
 }
 
-.container {
+/* .container {
   width: 100%;
   max-width: 90%;
   margin: auto;
   padding: 0 30px;
   background-color: #ffffff;
-}
+} */
 
-.header {
+/* .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #000000;
   padding: 10px 30px;
   text-transform: uppercase;
-}
-.header ul {
+} */
+/* .header ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.header li {
+} */
+/* .header li {
   margin-left: 20px;
   color: #ffffff;
 }
 .header ul li a {
-  color: #000;
+  color: #fff;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: bold;
-}
+} */
 .header ul li a:hover {
   color: #333;
   border-bottom: 1px solid #333;
 }
 
-.btn {
+.btn,
+#submitBtn [type='button'] {
   display: inline-block;
-  background: #facc15;
+  background-color: #facc15;
   color: #000000;
   border: none;
   padding: 10px 20px;
@@ -128,6 +129,11 @@ p {
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
+  border: 1px black solid;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .form-control textarea {
@@ -172,34 +178,33 @@ p {
 }
 
 .auth-container {
-  max-width: 600px;
+  max-width: 90%;
   margin: auto;
 }
-
 .auth-container h1 {
   text-align: center;
 }
-
 .auth-container .pageHeader {
   display: block;
 }
-
 .auth-container fieldset {
   padding: 15px;
   border-radius: 5px;
 }
-
 .auth-container fieldset label {
   margin-right: 10px;
 }
+.auth-container input {
+  max-width: 50%;
+}
 
-.inline-link {
+.auth-container .inline-link {
   color: #000000;
   text-decoration: underline;
   font-weight: bolder;
   font-size: larger;
 }
-.inline-link:hover {
+.auth-container .inline-link:hover {
   background-color: #facc15;
   color: #000000;
   font-weight: bolder;

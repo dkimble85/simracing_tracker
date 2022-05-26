@@ -1,4 +1,6 @@
-import { Links, NavLink, LiveReload, Meta, Outlet } from '@remix-run/react';
+import { Links, Link, NavLink, LiveReload, Meta, Outlet, useLoaderData } from '@remix-run/react';
+import { db } from './utils/db.server';
+import { getUser } from './utils/session.server';
 
 import tailwindstyles from './tailwind.css';
 import styles from './styles/shared.css';
@@ -12,9 +14,17 @@ export const meta = () => ({
 });
 
 export const links = () => [
-  { rel: 'stylesheet', href: styles },
   { rel: 'stylesheet', href: tailwindstyles },
+  { rel: 'stylesheet', href: styles },
 ];
+
+export const loader = async ({ request }) => {
+  const user = await getUser(request);
+  const data = {
+    user,
+  };
+  return data;
+};
 
 export default function App() {
   return (
@@ -55,11 +65,30 @@ const Layout = ({ children }) => {
 };
 
 const Header = () => {
+  const { user } = useLoaderData();
+
   return (
     <div className="flex">
-      <nav className="header grow flex-row-reverse">
-        <ul className="nav">
-          <li>Logged in user</li>
+      <nav className="flex grow flex-row-reverse justify-between items-center py-2 px-7 uppercase bg-black">
+        <ul className="flex justify-between items-center">
+          {user ? (
+            <li className="ml-5 text-white">
+              <form action="/auth/logout" method="POST">
+                <button type="submit" className="btn">
+                  Logout {user.username}
+                </button>
+              </form>
+            </li>
+          ) : (
+            <li className="ml-5 pr-2">
+              <Link
+                className="text-white uppercase text-md font-bold hover:text-zinc-600 hover:border-b-zinc-700"
+                to="/auth/login"
+              >
+                Login
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

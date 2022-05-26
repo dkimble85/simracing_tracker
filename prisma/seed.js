@@ -2,9 +2,18 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function seed() {
+  const danny = await prisma.user.create({
+    data: {
+      username: 'danny',
+      // Hash for password - twixrox
+      passwordHash: '$2b$10$K7L1OJ45/4Y2nIvhRVpCe.FSmhDdWoXehVzJptJ/op0lSsvqNu/1u',
+    },
+  });
+
   await Promise.all(
     getTimes().map((time) => {
-      return prisma.time.create({ data: time });
+      const data = { userId: danny.id, ...time };
+      return prisma.trackTimes.create({ data });
     })
   );
 }

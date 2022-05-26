@@ -35,7 +35,7 @@ function Time() {
     <div>
       <div className="page-header">
         <h1>Time {time.time}</h1>
-        <Link to="/times" className="btn btn-reverse">
+        <Link to="/times" className="btn">
           Back
         </Link>
       </div>

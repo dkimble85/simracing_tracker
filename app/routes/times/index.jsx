@@ -13,8 +13,6 @@ export const loader = async () => {
 const Time = () => {
   const { times } = useLoaderData();
 
-  const data = null;
-
   return (
     <>
       <div className="page-header">

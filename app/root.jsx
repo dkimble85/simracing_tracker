@@ -8,8 +8,8 @@ export const meta = () => ({
   charset: 'utf-8',
   viewport: 'width=device-width,initial-scale=1',
   description:
-    'An app to track your best times across different series, tracks and cars in iRacing',
-  keywords: 'react, remix, iRacing, javascript',
+    'An app to track your best times across different series, tracks and cars in Sim Racing games',
+  keywords: 'react, remix, iRacing, sim racing, javascript',
 });
 
 export const links = () => [{ rel: 'stylesheet', href: tailwindstyles }];
@@ -63,6 +63,10 @@ const Layout = ({ children }) => {
 const Header = () => {
   const { user } = useLoaderData();
 
+  const convertNameCaps = (name) => {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  };
+
   return (
     <div className="flex">
       <nav className="flex grow flex-row-reverse justify-between items-center py-2 px-7 uppercase bg-black">
@@ -71,7 +75,7 @@ const Header = () => {
             <li className="ml-5 text-white">
               <form action="/auth/logout" method="POST">
                 <button type="submit" className="btn">
-                  Logout {user.username}
+                  Logout {convertNameCaps(user.username)}
                 </button>
               </form>
             </li>

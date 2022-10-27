@@ -28,12 +28,12 @@ if (!sessionSecret) throw new Error('No Session Secret');
 // Create Session Storage
 const storage = createCookieSessionStorage({
   cookie: {
-    name: 'iracingtracker_session',
+    name: 'simracing_tracker_session',
     secure: process.env.NODE_ENV === 'production',
     secrets: [sessionSecret],
     sameSite: 'lax',
     path: '/',
-    maxAge: 60 * 60 * 24 * 60,
+    maxAge: 60 * 60 * 24 * 60, // 60 days
     httpOnly: true,
   },
 });

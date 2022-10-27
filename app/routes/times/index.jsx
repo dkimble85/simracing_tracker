@@ -1,4 +1,5 @@
 import { useLoaderData, Link } from '@remix-run/react';
+import React from 'react';
 import { db } from '../../utils/db.server';
 
 export const loader = async () => {
@@ -12,6 +13,8 @@ export const loader = async () => {
 
 const Time = () => {
   const { times } = useLoaderData();
+
+  const tableHeadings = ['Game', 'Track', 'Vehicle', 'Time'];
 
   return (
     <>
@@ -28,30 +31,15 @@ const Time = () => {
               <table className="min-w-full">
                 <thead className="bg-slate-300 border-b">
                   <tr>
-                    <th
-                      scope="col"
-                      className="text-large font-large text-black px-6 py-4 text-left"
-                    >
-                      Game
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-large font-large text-black px-6 py-4 text-left"
-                    >
-                      Track
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-large font-large text-black px-6 py-4 text-left"
-                    >
-                      Vehicle
-                    </th>
-                    <th
-                      scope="col"
-                      className="text-large font-large text-black px-6 py-4 text-left"
-                    >
-                      Time
-                    </th>
+                    {tableHeadings.map((heading) => (
+                      <th
+                        key={heading}
+                        scope="col"
+                        className="text-large font-large text-black px-6 py-4 text-left"
+                      >
+                        {heading}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>

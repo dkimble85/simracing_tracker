@@ -1,4 +1,15 @@
 import { Link } from '@remix-run/react';
+import { useLoaderData } from '@remix-run/react';
+
+import { getUser } from '../utils/session.server';
+
+export const loader = async ({ request }) => {
+  const user = await getUser(request);
+  const data = {
+    user,
+  };
+  return data;
+};
 
 const Welcome = () => {
   return (
@@ -8,8 +19,7 @@ const Welcome = () => {
         <p>
           Have you ever wanted to see what your best lap times were in different sim racing games?
           Maybe you want to see how fast you were in a specific vehicle on that track. Now with the
-          SimRacing Tracker you can input your fastest times for each track, car and series
-          (iRacing).
+          SimRacing Tracker you can input your fastest times for each track, car and series.
         </p>
       </div>
 

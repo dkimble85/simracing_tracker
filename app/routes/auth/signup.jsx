@@ -12,17 +12,38 @@ const SignUp = () => {
 
       <div className="page-content">
         <form method="POST">
-          <div className="form-control">
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" />
+          <div className="my-5 mx-0">
+            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
           </div>
-          <div className="form-control">
-            <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" />
+          <div className="my-5 mx-0">
+            <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
+              Username
+            </label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
           </div>
-          <div className="form-control">
-            <label htmlFor="pword">Password</label>
-            <input type="password" name="pword" id="pword" />
+          <div className="my-5 mx-0">
+            <label htmlFor="pword" className="block text-gray-700 text-sm font-bold mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              name="pword"
+              id="pword"
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
           </div>
           <button
             type="submit"

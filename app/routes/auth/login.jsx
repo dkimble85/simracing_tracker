@@ -100,7 +100,7 @@ const Login = () => {
         <form method="POST">
           <fieldset className="p-4 rounded">
             <legend>Login or Register</legend>
-            <label className="mr-3">
+            <label className="mr-3 border-black">
               <input
                 type="radio"
                 name="loginType"
@@ -124,13 +124,16 @@ const Login = () => {
               Register
             </label>
           </fieldset>
-          <div className="form-control">
-            <label htmlFor="username">Username</label>
+          <div className="my-5 mx-0">
+            <label htmlFor="username" className="block">
+              Username
+            </label>
             <input
               type="text"
               name="username"
               id="username"
               defaultValue={actionData?.fields?.username}
+              className="h-10 m-2 py-1 px-2 border border-black rounded-md"
             />
             <div className="text-red">
               {actionData?.fieldErrors?.username ? (
@@ -141,13 +144,16 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="form-control">
-            <label htmlFor="password">Password</label>
+          <div className="my-5 mx-0">
+            <label htmlFor="password" className="block">
+              Password
+            </label>
             <input
               type="password"
               name="password"
               id="password"
               defaultValue={actionData?.fields?.password}
+              className="h-10 m-2 py-1 px-2 border border-black rounded-md"
             />
             <div className="text-red">
               {actionData?.fieldErrors?.password ? (

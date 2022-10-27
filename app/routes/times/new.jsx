@@ -61,21 +61,21 @@ const NewTime = () => {
 
       <div className="page-content">
         <form method="POST">
-          <div className="form-control">
+          <div className="my-5 mx-0">
             <label htmlFor="game">Game</label>
             <input type="text" name="game" id="game" defaultValue={actionData?.fields?.game} />
             <div className="text-red">
               <p>{actionData?.fieldErrors?.game && actionData?.fieldErrors?.game}</p>
             </div>
           </div>
-          <div className="form-control">
+          <div className="my-5 mx-0">
             <label htmlFor="track">Track</label>
             <input type="text" name="track" id="track" defaultValue={actionData?.fields?.track} />
             <div className="text-red">
               <p>{actionData?.fieldErrors?.track && actionData?.fieldErrors?.track}</p>
             </div>
           </div>
-          <div className="form-control">
+          <div className="my-5 mx-0">
             <label htmlFor="vehicle">Vehicle</label>
             <input
               type="text"
@@ -87,7 +87,7 @@ const NewTime = () => {
               <p>{actionData?.fieldErrors?.vehicle && actionData?.fieldErrors?.vehicle}</p>
             </div>
           </div>
-          <div className="form-control">
+          <div className="my-5 mx-0">
             <label htmlFor="time">Time</label>
             <input type="text" name="time" id="time" defaultValue={actionData?.fields?.time} />
             <div className="text-red">

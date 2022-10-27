@@ -2,7 +2,7 @@
 
 ## Features
 
-Features that I would like to add to the iRacing Tracker app:
+Features that I would like to add to the Sim Racing Tracker app:
 
 [ ] Show Times in a table with filtering based on sim game, track
 [ ] Edit mode or edit delete icon next to each row
@@ -11,12 +11,13 @@ Features that I would like to add to the iRacing Tracker app:
 [ ] Convert all custom CSS to TailwindCSS
 [ ] Creact a React context to store User information to be used for conditional rendering across app
 [x] Add New Time
-[x] Add Authentication
+[x] Add Login/Logout
+[ ] Add Register
 [ ] Deploy app to Vercel
 [ ] Write Unit Tests
 [ ] Caching? (Redis)
 [ ] Add GraphQL for API calls?
-[ ] Deploy with Docker?
+[ ] Deploy with Docker to Portainer? (https://remix.run/docs/en/v1/tutorials/jokes#deployment). Vercel is also a possibility
 
 ## Bugs
 

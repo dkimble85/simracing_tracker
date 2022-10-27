@@ -4,9 +4,6 @@
   "description": "",
   "license": "",
   "sideEffects": false,
-  "prisma": {
-    "seed": "node prisma/seed"
-  },
   "scripts": {
     "build": "npm run build:css && remix build",
     "build:css": "tailwindcss -o ./app/tailwind.css",

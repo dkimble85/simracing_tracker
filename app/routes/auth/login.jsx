@@ -1,6 +1,5 @@
 import { useActionData } from '@remix-run/react';
 import { redirect, json } from '@remix-run/node';
-import { db } from '../../utils/db.server';
 import { createUserSession, login } from '../../utils/session.server';
 
 function validateUsername(username) {
@@ -50,7 +49,7 @@ export const action = async ({ request }) => {
       }
 
       // Create Session
-      return createUserSession(user.id, '/');
+      return createUserSession(user.user_id, '/times');
     }
     case 'register': {
       // Check if user exists
@@ -83,8 +82,6 @@ export const action = async ({ request }) => {
       });
     }
   }
-
-  return redirect('/times');
 };
 
 const Login = () => {

@@ -1,15 +1,6 @@
 import { Link } from '@remix-run/react';
-import { useLoaderData } from '@remix-run/react';
 
 import { getUser } from '../utils/session.server';
-
-export const loader = async ({ request }) => {
-  const user = await getUser(request);
-  const data = {
-    user,
-  };
-  return data;
-};
 
 const Welcome = () => {
   return (
@@ -22,18 +13,21 @@ const Welcome = () => {
           SimRacing Tracker you can input your fastest times for each track, car and series.
         </p>
       </div>
-
-      <h2>Getting Started</h2>
-      <p>
-        First you will need to create an account. Please follow the{' '}
-        <Link
-          to="/auth/signup"
-          className="text-black underline font-extrabold text-xl hover:bg-yellow-500 hover:text-black hover:font-extrabold"
-        >
-          Sign-Up
-        </Link>{' '}
-        page to create your account in order to save you data.
-      </p>
+      {getUser === null && (
+        <>
+          <h2>Getting Started</h2>
+          <p>
+            First you will need to create an account. Please follow the{' '}
+            <Link
+              to="/auth/signup"
+              className="text-black underline font-extrabold text-xl hover:bg-yellow-500 hover:text-black hover:font-extrabold"
+            >
+              Sign-Up
+            </Link>{' '}
+            page to create your account in order to save you data.
+          </p>
+        </>
+      )}
     </>
   );
 };

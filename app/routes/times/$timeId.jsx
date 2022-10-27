@@ -4,11 +4,9 @@ import { db } from '../../utils/db.server';
 
 export const loader = async ({ params }) => {
   const time = await db.trackTimes.findUnique({
-    where: { id: params.timeId },
+    where: { id: params.time },
   });
-
   if (!time) throw new Error('Time not found');
-
   const data = { time };
   return data;
 };
@@ -17,7 +15,7 @@ export const action = async ({ request, params }) => {
   const form = await request.formData();
   if (form.get('_method') === 'delete') {
     const post = await db.trackTimes.findUnique({
-      where: { id: params.timeId },
+      where: { id: params.time },
     });
 
     if (!post) throw new Error('Time not found');

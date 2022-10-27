@@ -2,18 +2,24 @@ import bcrypt from 'bcrypt';
 import { db } from './db.server';
 import { createCookieSessionStorage, redirect } from '@remix-run/node';
 
+interface User {
+  username?: string;
+  password: string;
+}
 // Login user
-export const login = async ({ username, password }) => {
+export const login = async ({ username, password }: User) => {
   const user = await db.user.findUnique({
     where: {
       username,
     },
   });
 
+  console.log(user?.password);
+
   if (!user) return null;
 
   // Check password
-  const isCorrectPassword = await bcrypt.compare(password, user.passwordHash);
+  const isCorrectPassword = await bcrypt.compare(password, user.password);
 
   if (!isCorrectPassword) return null;
 
@@ -61,12 +67,12 @@ export const getUser = async (request: Request) => {
   const userId = session.get('userId');
 
   // Check if userId is in session
-  if (!userId || typeof userId !== 'string') return null;
+  if (!userId || typeof userId !== 'number') return null;
 
   try {
-    const user = await db.user.findUnique({
+    const user = await db.user.findFirst({
       where: {
-        id: userId,
+        user_id: userId,
       },
     });
 

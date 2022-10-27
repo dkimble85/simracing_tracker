@@ -3,27 +3,27 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  username      String   @unique
-  passwordHash  String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  times         TrackTimes[]
+  user_id    Int          @id @default(autoincrement())
+  email      String
+  created_at DateTime     @default(now())
+  username   String       @unique
+  password   String
+  updated_at DateTime     @default(now())
+  TrackTimes TrackTimes[]
 }
 
 model TrackTimes {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String   @db.ObjectId
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  game        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  time        String
-  track       String
-  vehicle     String
+  track_id   Int      @id @default(autoincrement())
+  user_id    Int
+  game       String
+  time       String
+  track_name String
+  updated_at DateTime @default(now())
+  vehicle    String
+  User       User?    @relation(fields: [user_id], references: [user_id])
 }

@@ -1,31 +1,22 @@
-import { useState } from 'react';
-// import Dashboard from './dashboard';
-// import Welcome from './welcome';
-
-// import { getUser } from '../utils/session.server';
-
-// export const loader = async ({ request }) => {
-//   const user = await getUser(request);
-//   const data = {
-//     user,
-//   };
-//   return data;
-// };
-
 const Home = () => {
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // return <>{isLoggedIn ? <Dashboard /> : <Welcome />}</>;
   return (
-    <>
-      <h1 className="text-6xl font-normal leading-normal mt-0 mb-2">Welcome!</h1>
-      <div>
-        <p>
-          Have you ever wanted to see what your best lap times were in different sim racing games?
-          Maybe you want to see how fast you were in a specific vehicle on that track. Now with the
-          SimRacing Tracker you can input your fastest times for each track, car and series.
-        </p>
-      </div>
-    </>
+    <div className="py-2 px-8">
+      <main className="px-4 my-2 mx-8 min-h-screen flex flex-1 flex-col w-3/4">
+        <h1 className="text-2xl py-3">
+          Welcome to your personal journal!
+        </h1>
+        <div>
+          This is a place where you can express your feelings, keep
+          track of your journal entries, and catalog your thoughts.
+          Mental health is undervalued in today&apos;s society and on
+          average it isn&apos;t even considered by older generations.
+        </div>
+        <div>
+          Login with your credentials or register a new account to
+          start your journaling journey!
+        </div>
+      </main>
+    </div>
   );
 };
 

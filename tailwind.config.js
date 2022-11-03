@@ -1,14 +1,8 @@
 module.exports = {
-  content: ['./app/**/*.{js,jsx}'], // Here we are going to tell Tailwind to use any javascript .js or .jsx file
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: ['./components/**/*.{js,ts,jsx,tsx}', './pages/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {
-      maxWidth: {
-        '1/4': '25%',
-        '1/2': '50%',
-        '3/4': '75%',
-      },
-    },
+    extend: {},
   },
-  variants: {},
   plugins: [],
 };

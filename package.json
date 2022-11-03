@@ -1,35 +1,34 @@
 {
-  "name": "remix-template-remix",
+  "name": "sim-racing-tracker",
   "private": true,
-  "description": "",
-  "license": "",
-  "sideEffects": false,
+  "description": "Sim Racing Tracker",
+  "license": "MIT",
   "scripts": {
-    "build": "npm run build:css && remix build",
-    "build:css": "tailwindcss -o ./app/tailwind.css",
-    "dev": "remix dev",
-    "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
-    "postinstall": "remix setup node",
-    "start": "remix-serve build"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.2.0",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@prisma/client": "^3.12.0",
-    "@remix-run/node": "^1.3.4",
-    "@remix-run/react": "^1.3.4",
-    "@remix-run/serve": "^1.3.4",
     "bcrypt": "^5.0.1",
+    "framer-motion": "^6.3.10",
+    "next": "^13.0.1",
     "prisma": "^3.12.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.3.4",
-    "@remix-run/eslint-config": "^1.3.4",
-    "concurrently": "^7.1.0",
-    "eslint": "^8.11.0",
-    "tailwindcss": "^3.0.23"
-  },
-  "engines": {
-    "node": ">=14"
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "18.0.5",
+    "autoprefixer": "^10.4.7",
+    "eslint": "^8.16.0",
+    "eslint-config-next": "12.1.6",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^4.8.4"
   }
 }

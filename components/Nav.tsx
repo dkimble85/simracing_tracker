@@ -1,8 +1,9 @@
-import Link from 'next/link';
+import Link from 'next/link'
+import { useContext } from 'react'
+import { UserContext } from '../context/UserContext'
 
-const Nav = () => {
-  // TODO: Add user check against session
-  const user = true;
+export const Nav = () => {
+  const userContext = useContext(UserContext)
 
   return (
     <>
@@ -12,7 +13,7 @@ const Nav = () => {
             Home
           </Link>
         </div>
-        {user && (
+        {userContext.user && (
           <>
             <div>
               <Link href="/times" className="my-1">
@@ -28,7 +29,5 @@ const Nav = () => {
         )}
       </nav>
     </>
-  );
-};
-
-export default Nav;
+  )
+}

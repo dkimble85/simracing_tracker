@@ -3,7 +3,6 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
-import Header from "../ components/Header";
 import Sidebar from "../ components/Sidebar";
 
 const Home: NextPage = () => {

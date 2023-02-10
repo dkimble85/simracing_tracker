@@ -28,17 +28,20 @@ import {
   FiMenu,
   FiBell,
   FiChevronDown,
+  FiClock,
 } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import type { ReactText } from "react";
+import Home from "../pages";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
 }
+
+const HomeLinkItem: Array<LinkItemProps> = [{ name: "Home", icon: FiHome }];
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "View Track Times", icon: FiBell },
+  { name: "View Track Times", icon: FiClock },
   { name: "Manage Track Times", icon: FiSettings },
 ];
 
@@ -77,6 +80,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const { data: session } = useSession();
   return (
     <Box
       transition="3s ease"
@@ -94,11 +98,19 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
+      {HomeLinkItem.map((link) => (
         <NavItem key={link.name} icon={link.icon}>
           {link.name}
         </NavItem>
       ))}
+
+      {session &&
+        session.user &&
+        LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ))}
     </Box>
   );
 };
@@ -180,12 +192,6 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       <HStack spacing={{ base: "0", md: "6" }}>
         {session && session.user ? (
           <>
-            <IconButton
-              size="lg"
-              variant="ghost"
-              aria-label="open menu"
-              icon={<FiBell />}
-            />
             <Flex alignItems={"center"}>
               <Menu>
                 <MenuButton
@@ -207,10 +213,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     </Box>
                   </HStack>
                 </MenuButton>
-                <MenuList
-                  bg={useColorModeValue("white", "gray.900")}
-                  borderColor={useColorModeValue("gray.200", "gray.700")}
-                >
+                <MenuList borderColor={"gray.700"}>
                   <MenuItem>Edit Profile</MenuItem>
                   <MenuDivider />
                   <MenuItem onClick={() => void signOut()}>Sign out</MenuItem>

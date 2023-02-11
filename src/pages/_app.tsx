@@ -5,6 +5,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import { api } from "../utils/api";
 
+import NavShell from "../ components/NavShell";
+
 import "../styles/globals.css";
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -14,7 +16,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <ChakraProvider>
-        <Component {...pageProps} />
+        <NavShell>
+          <Component {...pageProps} />
+        </NavShell>
       </ChakraProvider>
     </SessionProvider>
   );

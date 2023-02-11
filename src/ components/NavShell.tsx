@@ -26,7 +26,6 @@ import {
   FiHome,
   FiSettings,
   FiMenu,
-  FiBell,
   FiChevronDown,
   FiClock,
 } from "react-icons/fi";
@@ -37,12 +36,15 @@ import Home from "../pages";
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  route: string;
 }
 
-const HomeLinkItem: Array<LinkItemProps> = [{ name: "Home", icon: FiHome }];
+const HomeLinkItem: Array<LinkItemProps> = [
+  { name: "Home", icon: FiHome, route: "/" },
+];
 const LinkItems: Array<LinkItemProps> = [
-  { name: "View Track Times", icon: FiClock },
-  { name: "Manage Track Times", icon: FiSettings },
+  { name: "View Track Times", icon: FiClock, route: "/times" },
+  { name: "Manage Track Times", icon: FiSettings, route: "/times/manage" },
 ];
 
 export default function Sidebar({ children }: { children: ReactNode }) {
@@ -99,7 +101,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {HomeLinkItem.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} route={link.route}>
           {link.name}
         </NavItem>
       ))}
@@ -118,11 +120,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  route: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
   return (
     <Link
-      href="#"
+      href={route}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
@@ -214,7 +217,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   </HStack>
                 </MenuButton>
                 <MenuList borderColor={"gray.700"}>
-                  <MenuItem>Edit Profile</MenuItem>
+                  <MenuItem>
+                    <Link href="/profile">Edit Profile</Link>
+                  </MenuItem>
                   <MenuDivider />
                   <MenuItem onClick={() => void signOut()}>Sign out</MenuItem>
                 </MenuList>

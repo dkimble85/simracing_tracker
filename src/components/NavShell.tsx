@@ -109,7 +109,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {session &&
         session.user &&
         LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon}>
+          <NavItem key={link.name} icon={link.icon} route={link.route}>
             {link.name}
           </NavItem>
         ))}

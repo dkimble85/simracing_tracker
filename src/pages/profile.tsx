@@ -3,7 +3,7 @@ import { type NextPage } from "next";
 import { authOptions } from "../server/auth";
 import { getServerSession } from "next-auth/next";
 import Head from "next/head";
-import ProfileScreen from "../ components/ProfileScreen";
+import ProfileScreen from "../components/ProfileScreen";
 
 const profile: NextPage = () => {
   return (

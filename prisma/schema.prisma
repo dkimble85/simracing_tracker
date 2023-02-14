@@ -17,13 +17,13 @@ datasource db {
 model TrackTime {
   id        String   @id @default(cuid())
   trackName String
-  time      DateTime
+  time      String
   vehicle   String
   game      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+  User      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 // Necessary for Next auth

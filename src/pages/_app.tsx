@@ -5,7 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import { api } from "../utils/api";
 
-import NavShell from "../ components/NavShell";
+import NavShell from "../components/NavShell";
 
 import "../styles/globals.css";
 

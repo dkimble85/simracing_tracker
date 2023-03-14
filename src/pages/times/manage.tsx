@@ -24,7 +24,9 @@ const ManageTimes: NextPage = () => {
         <div>{entry.vehicleClass}</div>
         <div>{entry.game}</div>
         <div>
-          <FiEdit />
+          <Link href={`/times/edit/${encodeURIComponent(entry.id)}`}>
+            <FiEdit />
+          </Link>
         </div>
       </div>
     ));

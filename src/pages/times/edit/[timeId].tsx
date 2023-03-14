@@ -1,4 +1,9 @@
-import { Button } from "@chakra-ui/react";
+import {
+  Button,
+  Editable,
+  EditableInput,
+  EditablePreview,
+} from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -23,30 +28,46 @@ const TimeDetails = () => {
           <h1 className="bold pb-2 text-3xl">Track Time</h1>
         </div>
         <div>
-          <Link href="/times" passHref>
-            <Button>Login</Button>
+          <Link href={"/times/manage"}>
+            <Button>Back</Button>
           </Link>
         </div>
       </div>
       <div className="flex flex-col">
         <div className="mb-2">
           <h2 className="text-xl">Track Name:</h2>{" "}
-          <div>{trackTime.data?.trackName}</div>
+          <Editable placeholder={trackTime.data?.trackName}>
+            <EditablePreview />
+            <EditableInput />
+          </Editable>
         </div>
         <div className="mb-2">
           <h2 className="text-xl">Track Time:</h2>{" "}
-          <div>{trackTime.data?.time}</div>
+          <Editable placeholder={trackTime.data?.time}>
+            <EditablePreview />
+            <EditableInput />
+          </Editable>
         </div>
         <div className="mb-2">
           <h2 className="text-xl">Vehicle:</h2>{" "}
-          <div>{trackTime.data?.vehicle}</div>
+          <Editable placeholder={trackTime.data?.vehicle}>
+            <EditablePreview />
+            <EditableInput />
+          </Editable>
         </div>
         <div className="mb-2">
           <h2 className="text-xl">Vehicle Class:</h2>{" "}
-          <div>{trackTime.data?.vehicleClass}</div>
+          <Editable placeholder={trackTime.data?.vehicleClass as string}>
+            <EditablePreview />
+            <EditableInput />
+          </Editable>
         </div>
         <div className="mb-2">
-          <h2 className="text-xl">Game:</h2> <div>{trackTime.data?.game}</div>
+          <h2 className="text-xl">Game:</h2>{" "}
+          <Editable placeholder={trackTime.data?.game}>
+            <EditablePreview />
+            <EditableInput />
+          </Editable>
         </div>
       </div>
     </>

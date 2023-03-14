@@ -9,7 +9,6 @@ import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TrackTime } from "@prisma/client";
 import { FiEdit } from "react-icons/fi";
-import type { IconType } from "react-icons";
 
 const ManageTimes: NextPage = () => {
   const { data } = api.times.getAllTimes.useQuery();

@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import type { BoxProps, FlexProps } from "@chakra-ui/react";
+import { BoxProps, Button, FlexProps } from "@chakra-ui/react";
 import {
   IconButton,
-  Avatar,
   Box,
   CloseButton,
   Flex,
@@ -31,7 +30,6 @@ import {
 } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import type { ReactText } from "react";
-import Home from "../pages";
 
 interface LinkItemProps {
   name: string;
@@ -50,7 +48,7 @@ const LinkItems: Array<LinkItemProps> = [
 export default function Sidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box minH="100vh" bg="purple.800">
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -70,8 +68,18 @@ export default function Sidebar({ children }: { children: ReactNode }) {
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
+      <Box ml={{ base: 0, md: 60 }} p="8" bg="purple.800" height="max-content">
+        <Box
+          bg="white"
+          rounded="lg"
+          boxShadow="2xl"
+          p="4"
+          display="flex"
+          flexDirection="column"
+          height="100%"
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );
@@ -88,7 +96,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       transition="3s ease"
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      borderRightColor={useColorModeValue("gray.300", "gray.700")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
@@ -137,7 +145,7 @@ const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
+          bg: "purple.400",
           color: "white",
         }}
         {...rest}
@@ -216,7 +224,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     </Box>
                   </HStack>
                 </MenuButton>
-                <MenuList borderColor={"gray.700"}>
+                <MenuList borderColor={"gray.700"} borderWidth="3px">
                   <MenuItem>
                     <Link href="/profile">Edit Profile</Link>
                   </MenuItem>
@@ -227,12 +235,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             </Flex>
           </>
         ) : (
-          <button
-            className="rounded-full bg-white/10 px-10 py-3 font-semibold text-blue-400 no-underline transition hover:bg-white/20"
+          <Button
+            className="rounded-full bg-white px-10 py-3 font-bold text-blue-400 no-underline transition hover:text-xl "
             onClick={() => void signIn()}
           >
             Sign in
-          </button>
+          </Button>
         )}
       </HStack>
     </Flex>

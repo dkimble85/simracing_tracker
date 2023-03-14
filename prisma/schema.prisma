@@ -15,15 +15,16 @@ datasource db {
 }
 
 model TrackTime {
-  id        String   @id @default(cuid())
-  trackName String
-  time      String
-  vehicle   String
-  game      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  User      User     @relation(fields: [userId], references: [id])
-  userId    String
+  id           String   @id @default(cuid())
+  trackName    String
+  time         String
+  vehicle      String
+  game         String
+  vehicleClass String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  User         User     @relation(fields: [userId], references: [id])
+  userId       String
 }
 
 // Necessary for Next auth

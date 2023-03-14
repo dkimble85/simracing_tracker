@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const timesRouter = createTRPCRouter({
   /* Procedures:
@@ -11,10 +11,10 @@ export const timesRouter = createTRPCRouter({
   addTime: protectedProcedure
     .input(
       z.object({
-        id: z.string().uuid().optional(),
         trackName: z.string(),
-        time: z.string(),
+        time: z.string().regex(new RegExp("[0-9]{2}:[0-9]{2}:[0-9]{3}")),
         vehicle: z.string(),
+        vehicleClass: z.string(),
         game: z.string(),
         userId: z.string(),
       })
@@ -25,5 +25,28 @@ export const timesRouter = createTRPCRouter({
       });
 
       return TrackTime;
+    }),
+  getAllTimes: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user?.id;
+    const times = await ctx.prisma.trackTime.findMany({
+      where: {
+        userId: userId,
+      },
+    });
+    return times;
+  }),
+  getTime: protectedProcedure
+    .input(
+      z.object({
+        timeId: z.string(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const time = await ctx.prisma.trackTime.findUnique({
+        where: {
+          id: input.timeId,
+        },
+      });
+      return time;
     }),
 });

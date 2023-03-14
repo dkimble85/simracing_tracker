@@ -1,19 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
-
-import { api } from "../utils/api";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
   return (
     <>
       <Head>
@@ -23,15 +11,16 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="flex flex-col gap-4">
-        <p className="text-2xl text-black">
-          {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-          {secretMessage && <span> - {secretMessage}</span>}
-        </p>
-      </div>
-      <div className="flex flex-col gap-2">
-        <p className="text-2xl text-black">
-          {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-        </p>
+        <div>
+          <h1 className="text-3xl font-bold">
+            Welcome to the Sim Racing Time Tracker (SRTT).
+          </h1>
+        </div>
+        <div className="font-normal">
+          Once you register an account or sign in, you will gain access to
+          view/store your best times across your favorite sim racing games.
+        </div>
+        <div>Placeholder Screenshot</div>
       </div>
     </>
   );

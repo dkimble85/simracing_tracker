@@ -1,72 +1,60 @@
+// Fetch all times to display on table
 import type { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
-import { getServerSession } from "next-auth/next";
-import { useSession } from "next-auth/react";
-
-import { useForm } from "react-hook-form";
+import { type NextPage } from "next";
 import { authOptions } from "../../server/auth";
+import { getServerSession } from "next-auth/next";
+import Link from "next/link";
 import { api } from "../../utils/api";
+import { Button } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { TrackTime } from "@prisma/client";
+import { FiEdit } from "react-icons/fi";
 
-type FormValues = {
-  id?: string;
-  trackName: string;
-  time: string;
-  vehicle: string;
-  game: string;
-  userId: string;
-};
+const ManageTimes: NextPage = () => {
+  const { data } = api.times.getAllTimes.useQuery();
+  const [times, setTimes] = useState<TrackTime[]>();
 
-const ManageTimes = () => {
-  const createTime = api.times.addTime.useMutation();
-  const { data: session } = useSession();
+  console.log(data);
+  const BuildTimeRows = () => {
+    return times?.map((entry) => (
+      <div className="grid grid-cols-6 p-1" key={entry.id}>
+        <div>{entry.time}</div>
+        <div>{entry.trackName}</div>
+        <div>{entry.vehicle}</div>
+        <div>{entry.vehicleClass}</div>
+        <div>{entry.game}</div>
+        <div>
+          <FiEdit />
+        </div>
+      </div>
+    ));
+  };
 
-  const router = useRouter();
-
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>();
-
-  const onSubmit = handleSubmit((data: FormValues) => {
-    const inputs = { ...data, userId: session?.user?.id };
-
-    createTime
-      .mutateAsync(inputs)
-      .then(() => {
-        return router.push("/times");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
+  useEffect(() => {
+    setTimes(data);
+  }, [data]);
 
   return (
     <>
-      <div>Manage Times</div>
-      <form onSubmit={() => onSubmit}>
-        <label htmlFor="trackName">
-          Track Name:
-          <input
-            id="trackName"
-            {...register("trackName", { required: true })}
-          />
-        </label>
-        <label htmlFor="time">
-          Time:
-          <input id="time" {...register("time", { required: true })} />
-        </label>
-        <label htmlFor="vehicle">
-          Vehicle:
-          <input id="vehicle" {...register("vehicle", { required: true })} />
-        </label>
-        <label htmlFor="game">
-          Game:
-          <input id="game" {...register("game", { required: true })} />
-        </label>
-        <button type="submit">Create Time</button>
-      </form>
+      <div>Times Page</div>
+      <div className="m-4 flex flex-col">
+        <div className="w-1/6">
+          <Button>
+            <Link href="/times/addTime">Add a Time</Link>
+          </Button>
+        </div>
+        <div className="mt-2 rounded border border-solid border-black p-2">
+          <div className="grid grid-cols-6 border-b border-solid">
+            <div>Time</div>
+            <div>Track Name</div>
+            <div>Vehicle</div>
+            <div>Vehicle Class</div>
+            <div>Game</div>
+            <div>&nbsp;</div>
+          </div>
+          {times ? BuildTimeRows() : "Loading..."}
+        </div>
+      </div>
     </>
   );
 };

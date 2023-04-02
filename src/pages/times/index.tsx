@@ -13,7 +13,6 @@ const Times: NextPage = () => {
   const { data } = api.times.getAllTimes.useQuery();
   const [times, setTimes] = useState<TrackTime[]>();
 
-  console.log(data);
   const BuildTimeRows = () => {
     return times?.map((entry) => (
       <div className="grid grid-cols-5 p-1" key={entry.id}>
@@ -32,12 +31,14 @@ const Times: NextPage = () => {
 
   return (
     <>
-      <div>Times Page</div>
+      <div>
+        <h1 className="bold text-2xl">Times Page</h1>
+      </div>
       <div className="m-4 flex flex-col">
         <div className="w-1/6">
-          <Button>
-            <Link href="/times/addTime">Add a Time</Link>
-          </Button>
+          <Link href="/times/addTime">
+            <Button>Add a Time</Button>
+          </Link>
         </div>
         <div className="mt-2 rounded border border-solid border-black p-2">
           <div className="grid grid-cols-5 border-b border-solid">

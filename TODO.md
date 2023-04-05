@@ -3,13 +3,13 @@
 As a user, I expect to
 
 [x] see all times associated to my account
-[ ] see individual track times (slug)
+[x] see individual track times (slug)
 [x] have a Signin page
 [ ] Signout model/confirm to sign out or cancel "Are you sure you want to sign out?"
 [ ] be able to filter and sort track data
 [ ] be able to edit profile information like "nickname" and "email"
 [x] be able to add new times
-[ ] be able to edit times
+[x] be able to edit times
 [ ] be able to delete times
 [ ] receive an error page when things go wrong (invalid URL, data fetching, submission error, etc.)
 [x] receive proper form validation on all submission forms

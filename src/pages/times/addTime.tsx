@@ -144,6 +144,7 @@ const AddTime: NextPage = () => {
         <div>
           <Button
             isLoading={isSubmitting}
+            loadingText="Saving"
             className="m-2 w-1/6"
             colorScheme="purple"
             type="submit"

@@ -50,7 +50,7 @@ const TimeDetails = () => {
       const [key] = entry;
       const input = document.getElementById(key) as HTMLInputElement | null;
 
-      if (!input?.value === "") {
+      if (!input?.value) {
         defaultValues[key] = input?.defaultValue;
       } else {
         defaultValues[key] = input?.value;
@@ -66,13 +66,11 @@ const TimeDetails = () => {
       id: timeId,
     };
 
-    console.log(inputs);
-    console.log(errors);
     try {
       editTime
         .mutateAsync(inputs)
         .then(() => {
-          return router.push("/times/manage");
+          return router.push("/times");
         })
         .catch((err) => {
           console.log(err);
@@ -170,13 +168,15 @@ const TimeDetails = () => {
         <div>
           <Button
             isLoading={isSubmitting}
+            loadingText="Saving"
             className="m-2 w-1/6"
             colorScheme="purple"
             type="submit"
+            disabled={isSubmitting}
           >
-            Update Time
+            Save
           </Button>
-          <Link href="/times/manage">
+          <Link href="/times">
             <Button className="m-2 w-1/6" variant="outline">
               Back
             </Button>

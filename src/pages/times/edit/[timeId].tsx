@@ -1,8 +1,5 @@
 import {
   Button,
-  Editable,
-  EditableInput,
-  EditablePreview,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -29,6 +26,7 @@ const TimeDetails = () => {
   const trackTime = api.times.getTime.useQuery({
     timeId,
   });
+
   const editTime = api.times.editTime.useMutation();
 
   const {
@@ -49,11 +47,44 @@ const TimeDetails = () => {
     Object.entries(data).forEach((entry) => {
       const [key] = entry;
       const input = document.getElementById(key) as HTMLInputElement | null;
-
-      if (!input?.value) {
-        defaultValues[key] = input?.defaultValue;
-      } else {
-        defaultValues[key] = input?.value;
+      switch (entry[0]) {
+        case "trackName":
+          if (!input?.value) {
+            defaultValues.trackName = input?.defaultValue as string;
+          } else {
+            defaultValues[entry[0]] = input?.value;
+          }
+          break;
+        case "time":
+          if (!input?.value) {
+            defaultValues.time = input?.defaultValue as string;
+          } else {
+            defaultValues[entry[0]] = input?.value;
+          }
+          break;
+        case "vehicle":
+          if (!input?.value) {
+            defaultValues.vehicle = input?.defaultValue as string;
+          } else {
+            defaultValues[entry[0]] = input?.value;
+          }
+          break;
+        case "vehicleClass":
+          if (!input?.value) {
+            defaultValues.vehicleClass = input?.defaultValue as string;
+          } else {
+            defaultValues[entry[0]] = input?.value;
+          }
+          break;
+        case "game":
+          if (!input?.value) {
+            defaultValues.game = input?.defaultValue as string;
+          } else {
+            defaultValues[entry[0]] = input?.value;
+          }
+          break;
+        default:
+          break;
       }
     });
 

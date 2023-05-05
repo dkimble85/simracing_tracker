@@ -5,7 +5,6 @@ import { authOptions } from "../../server/auth";
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { api } from "../../utils/api";
-import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TrackTime } from "@prisma/client";
 import { FiEdit } from "react-icons/fi";
@@ -42,9 +41,12 @@ const Times: NextPage = () => {
       </div>
       <div className="m-4 flex flex-col">
         <div className="w-1/6">
-          <Button>
-            <Link href="/times/addTime">Add a Time</Link>
-          </Button>
+          <Link
+            href="/times/addTime"
+            className="rounded bg-purple-800 p-2 text-white"
+          >
+            Add a Time
+          </Link>
         </div>
         <div className="mt-2 rounded border border-solid border-black p-2">
           <div className="grid grid-cols-6 border-b border-solid">

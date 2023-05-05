@@ -14,7 +14,6 @@ const ManageTimes: NextPage = () => {
   const { data } = api.times.getAllTimes.useQuery();
   const [times, setTimes] = useState<TrackTime[]>();
 
-  console.log(data);
   const BuildTimeRows = () => {
     return times?.map((entry) => (
       <div className="grid grid-cols-6 p-1" key={entry.id}>
@@ -24,7 +23,9 @@ const ManageTimes: NextPage = () => {
         <div>{entry.vehicleClass}</div>
         <div>{entry.game}</div>
         <div>
-          <FiEdit />
+          <Link href={`/times/edit/${encodeURIComponent(entry.id)}`}>
+            <FiEdit />
+          </Link>
         </div>
       </div>
     ));

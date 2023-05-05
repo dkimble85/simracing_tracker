@@ -85,11 +85,11 @@ const AddTime: NextPage = () => {
             focusBorderColor="purple.500"
             size="md"
             {...register("time", {
-              required: "Required format 00:00:000",
+              required: true,
               pattern: /[0-9]{2}:[0-9]{2}:[0-9]{3}/i,
             })}
           />
-          <FormLabel>Time</FormLabel>
+          <FormLabel>Track Time</FormLabel>
           <FormErrorMessage>Required time format: 00:00:000</FormErrorMessage>
         </FormControl>
         <FormControl
@@ -139,20 +139,24 @@ const AddTime: NextPage = () => {
           />
           <FormLabel htmlFor="game">Game:</FormLabel>
           <FormErrorMessage>Please enter a sim racing game</FormErrorMessage>
-          <div>
-            <Button
-              isLoading={isSubmitting}
-              className="m-2 w-1/6"
-              colorScheme="purple"
-              type="submit"
-            >
-              Create Time
-            </Button>
-            <Button className="m-2 w-1/6" variant="outline">
-              <Link href="/times">Back</Link>
-            </Button>
-          </div>
         </FormControl>
+
+        <div>
+          <Button
+            isLoading={isSubmitting}
+            loadingText="Saving"
+            className="m-2 w-1/6"
+            colorScheme="purple"
+            type="submit"
+          >
+            Create Time
+          </Button>
+          <Link href="/times">
+            <Button className="m-2 w-1/6" variant="outline">
+              Back
+            </Button>
+          </Link>
+        </div>
       </form>
     </>
   );

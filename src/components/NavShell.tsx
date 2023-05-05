@@ -21,13 +21,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiSettings,
-  FiMenu,
-  FiChevronDown,
-  FiClock,
-} from "react-icons/fi";
+import { FiHome, FiMenu, FiChevronDown, FiClock } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import type { ReactText } from "react";
 
@@ -41,8 +35,7 @@ const HomeLinkItem: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, route: "/" },
 ];
 const LinkItems: Array<LinkItemProps> = [
-  { name: "View Track Times", icon: FiClock, route: "/times" },
-  { name: "Manage Track Times", icon: FiSettings, route: "/times/manage" },
+  { name: "Track Times", icon: FiClock, route: "/times" },
 ];
 
 export default function Sidebar({ children }: { children: ReactNode }) {

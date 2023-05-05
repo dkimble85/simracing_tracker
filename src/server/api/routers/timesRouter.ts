@@ -49,4 +49,34 @@ export const timesRouter = createTRPCRouter({
       });
       return time;
     }),
+  editTime: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        data: z.object({
+          updatedAt: z.date().optional(),
+          trackName: z.string(),
+          time: z.string().regex(new RegExp("[0-9]{2}:[0-9]{2}:[0-9]{3}")),
+          vehicle: z.string(),
+          game: z.string(),
+          vehicleClass: z.string(),
+          userId: z.string(),
+        }),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { id, data } = input;
+      const time = await ctx.prisma.trackTime.update({
+        where: { id },
+        data,
+      });
+
+      return time;
+    }),
+  deletTime: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input: id }) => {
+      await ctx.prisma.trackTime.delete({ where: { id } });
+      return id;
+    }),
 });

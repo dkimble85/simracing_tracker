@@ -9,7 +9,7 @@ export const userRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user?.id;
+      const userId = ctx.auth.userId;
       const user = await ctx.prisma.user.update({
         where: {
           id: userId,
@@ -21,7 +21,7 @@ export const userRouter = createTRPCRouter({
       return user;
     }),
   getUser: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user?.id;
+    const userId = ctx.auth.userId;
     const user = await ctx.prisma.user.findUnique({
       where: {
         id: userId,

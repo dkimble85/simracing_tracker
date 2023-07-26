@@ -27,7 +27,7 @@ export const timesRouter = createTRPCRouter({
       return TrackTime;
     }),
   getAllTimes: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user?.id;
+    const userId = ctx.auth?.userId;
     const times = await ctx.prisma.trackTime.findMany({
       where: {
         userId: userId,

@@ -1,8 +1,8 @@
 // Fetch all times to display on table
-import type { GetServerSideProps } from "next";
+import { clerkClient, getAuth, buildClerkProps } from "@clerk/nextjs/server";
+import { GetServerSideProps } from "next";
+import { useAuth } from "@clerk/nextjs";
 import { type NextPage } from "next";
-import { authOptions } from "../../server/auth";
-import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { api } from "../../utils/api";
 import { useEffect, useState } from "react";
@@ -10,10 +10,12 @@ import { TrackTime } from "@prisma/client";
 import { FiEdit } from "react-icons/fi";
 
 const Times: NextPage = () => {
+  const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { data } = api.times.getAllTimes.useQuery();
   const [times, setTimes] = useState<TrackTime[]>();
 
   const BuildTimeRows = () => {
+    console.log(data);
     return times?.map((entry) => (
       <div className="grid grid-cols-6 p-1" key={entry.id}>
         <div>{entry.time}</div>
@@ -64,23 +66,12 @@ const Times: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { userId } = getAuth(ctx.req);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth/signin",
-        permanent: false,
-      },
-    };
-  }
+  const user = userId ? await clerkClient.users.getUser(userId) : undefined;
 
-  return {
-    props: {
-      session,
-    },
-  };
+  return { props: { ...buildClerkProps(ctx.req, { user }) } };
 };
 
 export default Times;

@@ -1,5 +1,11 @@
 import type { ReactNode } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useAuth,
+} from "@clerk/nextjs";
 import { BoxProps, Button, FlexProps } from "@chakra-ui/react";
 import {
   IconButton,
@@ -21,7 +27,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { FiHome, FiMenu, FiChevronDown, FiClock } from "react-icons/fi";
+import { FiHome, FiMenu, FiClock } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import type { ReactText } from "react";
 
@@ -83,7 +89,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const { data: session } = useSession();
+  const { isLoaded, userId } = useAuth();
   return (
     <Box
       transition="3s ease"
@@ -107,8 +113,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </NavItem>
       ))}
 
-      {session &&
-        session.user &&
+      {isLoaded &&
+        userId &&
         LinkItems.map((link) => (
           <NavItem key={link.name} icon={link.icon} route={link.route}>
             {link.name}
@@ -163,7 +169,6 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const { data: session } = useSession();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -194,47 +199,16 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
-        {session && session.user ? (
-          <>
-            <Flex alignItems={"center"}>
-              <Menu>
-                <MenuButton
-                  py={2}
-                  transition="all 0.3s"
-                  _focus={{ boxShadow: "none" }}
-                >
-                  <HStack>
-                    <VStack
-                      display={{ base: "none", md: "flex" }}
-                      alignItems="flex-start"
-                      spacing="1px"
-                      ml="2"
-                    >
-                      <Text fontSize="sm">{session.user?.name}</Text>
-                    </VStack>
-                    <Box display={{ base: "none", md: "flex" }}>
-                      <FiChevronDown />
-                    </Box>
-                  </HStack>
-                </MenuButton>
-                <MenuList borderColor={"gray.700"} borderWidth="3px">
-                  <MenuItem>
-                    <Link href="/profile">Edit Profile</Link>
-                  </MenuItem>
-                  <MenuDivider />
-                  <MenuItem onClick={() => void signOut()}>Sign out</MenuItem>
-                </MenuList>
-              </Menu>
-            </Flex>
-          </>
-        ) : (
-          <Button
-            className="rounded-full bg-white px-10 py-3 font-bold text-blue-400 no-underline transition hover:text-xl "
-            onClick={() => void signIn()}
-          >
-            Sign in
-          </Button>
-        )}
+        <div>
+          <SignedIn>
+            {/* Mount the UserButton component */}
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+          <SignedOut>
+            {/* Signed out users get sign in button */}
+            <SignInButton />
+          </SignedOut>
+        </div>
       </HStack>
     </Flex>
   );

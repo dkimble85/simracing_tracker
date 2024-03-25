@@ -6,14 +6,13 @@ import {
   UserButton,
   useAuth,
 } from "@clerk/nextjs";
-import { BoxProps, Button, FlexProps } from "@chakra-ui/react";
+import { BoxProps, FlexProps } from "@chakra-ui/react";
 import {
   IconButton,
   Box,
   CloseButton,
   Flex,
   HStack,
-  VStack,
   Icon,
   useColorModeValue,
   Link,
@@ -21,11 +20,6 @@ import {
   DrawerContent,
   Text,
   useDisclosure,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
 } from "@chakra-ui/react";
 import { FiHome, FiMenu, FiClock } from "react-icons/fi";
 import type { IconType } from "react-icons";

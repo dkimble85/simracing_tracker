@@ -1,7 +1,6 @@
 // Fetch all times to display on table
 import { clerkClient, getAuth, buildClerkProps } from "@clerk/nextjs/server";
 import { GetServerSideProps } from "next";
-import { useAuth } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Link from "next/link";
 import { api } from "../../utils/api";
@@ -10,7 +9,6 @@ import { TrackTime } from "@prisma/client";
 import { FiEdit } from "react-icons/fi";
 
 const Times: NextPage = () => {
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { data } = api.times.getAllTimes.useQuery();
   const [times, setTimes] = useState<TrackTime[]>();
 

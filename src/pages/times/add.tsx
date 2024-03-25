@@ -1,11 +1,10 @@
-import type { GetServerSideProps } from "next";
 import { type NextPage } from "next";
 import { useRouter } from "next/router";
-import { getServerSession } from "next-auth/next";
-import { useSession } from "next-auth/react";
-
+import { clerkClient, getAuth, buildClerkProps } from "@clerk/nextjs/server";
+import { GetServerSideProps } from "next";
+import { useUser } from "@clerk/nextjs";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { authOptions } from "../../server/auth";
+
 import { api } from "../../utils/api";
 import {
   Button,
@@ -19,7 +18,7 @@ import { TrackTime } from "../../types";
 
 const AddTime: NextPage = () => {
   const createTime = api.times.addTime.useMutation();
-  const { data: session } = useSession();
+  const { user } = useUser();
 
   const router = useRouter();
 
@@ -30,7 +29,8 @@ const AddTime: NextPage = () => {
   } = useForm<TrackTime>();
 
   const onSubmit: SubmitHandler<TrackTime> = (data) => {
-    const inputs = { ...data, userId: session?.user.id as string };
+    console.log(user?.id);
+    const inputs = { ...data, userId: user?.id as string };
 
     console.log(errors);
     try {
@@ -161,24 +161,12 @@ const AddTime: NextPage = () => {
     </>
   );
 };
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { userId } = getAuth(ctx.req);
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const user = userId ? await clerkClient.users.getUser(userId) : undefined;
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      session,
-    },
-  };
+  return { props: { ...buildClerkProps(ctx.req, { user }) } };
 };
 
 export default AddTime;

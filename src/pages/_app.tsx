@@ -1,6 +1,7 @@
 import { type AppType } from "next/app";
-import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
+
+import { ClerkProvider } from "@clerk/nextjs";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 import { api } from "../utils/api";
@@ -46,18 +47,15 @@ export const theme = extendTheme({
   },
 });
 
-const MyApp: AppType<{ session: Session | null }> = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}) => {
+const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
   return (
-    <SessionProvider session={session}>
+    <ClerkProvider {...pageProps}>
       <ChakraProvider theme={theme}>
         <NavShell>
           <Component {...pageProps} />
         </NavShell>
       </ChakraProvider>
-    </SessionProvider>
+    </ClerkProvider>
   );
 };
 

@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import type { User } from "@prisma/client";
 import { useState } from "react";
-// import { useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
 

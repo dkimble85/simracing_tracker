@@ -7,17 +7,16 @@ import {
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { getServerSession } from "next-auth";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { clerkClient, getAuth, buildClerkProps } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { authOptions } from "../../../server/auth";
 import { api } from "../../../utils/api";
 import { TrackTime } from "../../../types";
 
 const TimeDetails = () => {
-  const { data: session } = useSession();
   const router = useRouter();
+  const { user } = useUser();
 
   const { timeId } = useRouter().query as {
     timeId: string;
@@ -92,7 +91,7 @@ const TimeDetails = () => {
       data: {
         ...defaultValues,
         updatedAt: new Date(),
-        userId: session?.user.id as string,
+        userId: user?.id as string,
       },
       id: timeId,
     };
@@ -218,23 +217,12 @@ const TimeDetails = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { userId } = getAuth(ctx.req);
 
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth/signin",
-        permanent: false,
-      },
-    };
-  }
+  const user = userId ? await clerkClient.users.getUser(userId) : undefined;
 
-  return {
-    props: {
-      session,
-    },
-  };
+  return { props: { ...buildClerkProps(ctx.req, { user }) } };
 };
 
 export default TimeDetails;

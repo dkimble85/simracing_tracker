@@ -42,7 +42,7 @@ const Times: NextPage = () => {
       <div className="m-4 flex flex-col">
         <div className="w-1/6">
           <Link
-            href="/times/addTime"
+            href="/times/add"
             className="rounded bg-purple-800 p-2 text-white"
           >
             Add a Time

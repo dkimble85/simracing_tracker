@@ -18,7 +18,7 @@ import { TrackTime } from "../../types";
 
 const AddTime: NextPage = () => {
   const createTime = api.times.addTime.useMutation();
-  const { isLoaded, user } = useUser();
+  const { user } = useUser();
 
   const router = useRouter();
 

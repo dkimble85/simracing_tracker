@@ -1,10 +1,15 @@
-# Create T3 App
+# Sim Racing Time Tracker (SRTT)
 
-This app is used to track your personal sim racing track times across different games. Log times for tracks, vehicles, vehicle classes, and even games. Are you faster at Monza on iRacing than you are on ACC? Use SRTT to find out!
+The Sim Racing Time Trackr (SRTT) is a way to track your track times not only for different tracks, vehicle classes and vehicles but also across different games. Whether you like to play iRacing and ACC on PC but play Gran Turismo 7 on your PS5, this is an app that lets you create an account to track all of your times.
+
+## How To Use SRTT
+
+### Account Creation
 
 ## Tech Stack
 
 - [Next.js](https://nextjs.org)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Clerk Auth](https://clerk.com/)
 - [Prisma](https://prisma.io)
 - [Postgresql - Supabase](https://supabase.com/)

@@ -26,6 +26,11 @@
   },
   "plugins": ["@typescript-eslint"],
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
+  "settings": {
+    "next": {
+      "rootDir": "."
+    }
+  },
   "rules": {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs.
     "@typescript-eslint/no-explicit-any": "off",

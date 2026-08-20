@@ -2,7 +2,6 @@ import { type NextPage } from "next";
 import { useRouter } from "next/router";
 import { clerkClient, getAuth, buildClerkProps } from "@clerk/nextjs/server";
 import { GetServerSideProps } from "next";
-import { useUser } from "@clerk/nextjs";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { api } from "../../utils/api";
@@ -13,12 +12,14 @@ import {
   FormLabel,
   Input,
   Link,
+  Heading,
+  Box,
+  Flex,
 } from "@chakra-ui/react";
 import { TrackTime } from "../../types";
 
 const AddTime: NextPage = () => {
   const createTime = api.times.addTime.useMutation();
-  const { user } = useUser();
 
   const router = useRouter();
 
@@ -28,141 +29,112 @@ const AddTime: NextPage = () => {
     formState: { errors, isSubmitting },
   } = useForm<TrackTime>();
 
-  const onSubmit: SubmitHandler<TrackTime> = (data) => {
-    console.log(user?.id);
-    const inputs = { ...data, userId: user?.id as string };
-
-    console.log(errors);
+  const onSubmit: SubmitHandler<TrackTime> = async (data) => {
     try {
-      createTime
-        .mutateAsync(inputs)
-        .then(() => {
-          return router.push("/times");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      await createTime.mutateAsync(data);
+      await router.push("/times");
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <>
-      <div>
-        <h1 className="bold text-2xl">Add Time</h1>
-      </div>
-      <form
-        className="mt-4 flex flex-col space-y-6"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <FormControl
-          variant="floating"
-          isRequired
-          isInvalid={Boolean(errors.trackName)}
-        >
-          <Input
-            className="ml-2"
-            id="trackName"
-            width="auto"
-            placeholder=""
-            focusBorderColor="purple.500"
-            size="md"
-            {...register("trackName", { required: true })}
-          />
-          <FormLabel>Track Name</FormLabel>
-          <FormErrorMessage>Please enter a track name</FormErrorMessage>
-        </FormControl>
-        <FormControl
-          variant="floating"
-          isRequired
-          isInvalid={Boolean(errors.time)}
-        >
-          <Input
-            className="ml-2"
-            id="time"
-            width="auto"
-            focusBorderColor="purple.500"
-            size="md"
-            {...register("time", {
-              required: true,
-              pattern: /[0-9]{2}:[0-9]{2}:[0-9]{3}/i,
-            })}
-          />
-          <FormLabel>Track Time</FormLabel>
-          <FormErrorMessage>Required time format: 00:00:000</FormErrorMessage>
-        </FormControl>
-        <FormControl
-          variant="floating"
-          isRequired
-          isInvalid={Boolean(errors.vehicle)}
-        >
-          <Input
-            className="ml-2"
-            id="vehicle"
-            width="auto"
-            focusBorderColor="purple.500"
-            size="md"
-            {...register("vehicle", { required: true })}
-          />
-          <FormLabel htmlFor="vehicle">Vehicle</FormLabel>
-          <FormErrorMessage>Please enter a vehicle</FormErrorMessage>
-        </FormControl>
-        <FormControl
-          variant="floating"
-          isRequired
-          isInvalid={Boolean(errors.vehicleClass)}
-        >
-          <Input
-            className="ml-2"
-            id="vehicleClass"
-            width="auto"
-            focusBorderColor="purple.500"
-            size="md"
-            {...register("vehicleClass", { required: true })}
-          />
-          <FormLabel>Vehicle Class</FormLabel>
-          <FormErrorMessage>Please enter a vehicle class</FormErrorMessage>
-        </FormControl>
-        <FormControl
-          variant="floating"
-          isRequired
-          isInvalid={Boolean(errors.game)}
-        >
-          <Input
-            className="ml-2"
-            id="game"
-            width="auto"
-            focusBorderColor="purple.500"
-            size="md"
-            {...register("game", { required: true })}
-          />
-          <FormLabel htmlFor="game">Game:</FormLabel>
-          <FormErrorMessage>Please enter a sim racing game</FormErrorMessage>
-        </FormControl>
+    <Box>
+      <Heading size="lg" mb={4}>
+        Add Time
+      </Heading>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Flex direction="column" gap={4}>
+          <FormControl isRequired isInvalid={Boolean(errors.trackName)}>
+            <FormLabel>Track Name</FormLabel>
+            <Input
+              id="trackName"
+              placeholder="e.g., Spa-Francorchamps"
+              focusBorderColor="purple.500"
+              {...register("trackName", { required: true })}
+            />
+            <FormErrorMessage>Please enter a track name</FormErrorMessage>
+          </FormControl>
 
-        <div>
-          <Button
-            isLoading={isSubmitting}
-            loadingText="Saving"
-            className="m-2 w-1/6"
-            colorScheme="purple"
-            type="submit"
-          >
-            Create Time
-          </Button>
-          <Link href="/times">
-            <Button className="m-2 w-1/6" variant="outline">
-              Back
+          <FormControl isRequired isInvalid={Boolean(errors.time)}>
+            <FormLabel>Track Time</FormLabel>
+            <Input
+              id="time"
+              placeholder="00:00:000"
+              focusBorderColor="purple.500"
+              {...register("time", {
+                required: true,
+                pattern: /[0-9]{2}:[0-9]{2}:[0-9]{3}/i,
+              })}
+            />
+            <FormErrorMessage>Required time format: 00:00:000</FormErrorMessage>
+          </FormControl>
+
+          <FormControl isRequired isInvalid={Boolean(errors.vehicle)}>
+            <FormLabel>Vehicle</FormLabel>
+            <Input
+              id="vehicle"
+              placeholder="e.g., Ferrari 488 GT3"
+              focusBorderColor="purple.500"
+              {...register("vehicle", { required: true })}
+            />
+            <FormErrorMessage>Please enter a vehicle</FormErrorMessage>
+          </FormControl>
+
+          <FormControl isRequired isInvalid={Boolean(errors.vehicleClass)}>
+            <FormLabel>Vehicle Class</FormLabel>
+            <Input
+              id="vehicleClass"
+              placeholder="e.g., GT3"
+              focusBorderColor="purple.500"
+              {...register("vehicleClass", { required: true })}
+            />
+            <FormErrorMessage>Please enter a vehicle class</FormErrorMessage>
+          </FormControl>
+
+          <FormControl isRequired isInvalid={Boolean(errors.game)}>
+            <FormLabel>Game</FormLabel>
+            <Input
+              id="game"
+              placeholder="e.g., Assetto Corsa Competizione"
+              focusBorderColor="purple.500"
+              {...register("game", { required: true })}
+            />
+            <FormErrorMessage>Please enter a sim racing game</FormErrorMessage>
+          </FormControl>
+
+          <Flex gap={4} mt={4}>
+            <Button
+              isLoading={isSubmitting}
+              loadingText="Saving"
+              type="submit"
+              bg="purple.500"
+              color="white"
+              _hover={{ bg: "purple.400" }}
+            >
+              Create Time
             </Button>
-          </Link>
-        </div>
+            <Link href="/times">
+              <Button variant="outline">Back</Button>
+            </Link>
+          </Flex>
+        </Flex>
       </form>
-    </>
+    </Box>
   );
 };
+
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { userId } = getAuth(ctx.req);
+
+  if (!userId) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   const user = userId ? await clerkClient.users.getUser(userId) : undefined;
 

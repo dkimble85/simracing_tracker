@@ -4,5 +4,4 @@ export interface TrackTime {
   vehicle: string;
   game: string;
   vehicleClass: string;
-  userId: string;
 }

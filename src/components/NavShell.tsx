@@ -1,27 +1,7 @@
 import type { ReactNode } from "react";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  useAuth,
-} from "@clerk/nextjs";
-import { BoxProps, FlexProps } from "@chakra-ui/react";
-import {
-  IconButton,
-  Box,
-  CloseButton,
-  Flex,
-  HStack,
-  Icon,
-  useColorModeValue,
-  Link,
-  Drawer,
-  DrawerContent,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { FiHome, FiMenu, FiClock } from "react-icons/fi";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { Box, Flex, HStack, Icon, Link, Text, Button } from "@chakra-ui/react";
+import { FiHome, FiClock } from "react-icons/fi";
 import type { IconType } from "react-icons";
 import type { ReactText } from "react";
 
@@ -31,45 +11,77 @@ interface LinkItemProps {
   route: string;
 }
 
-const HomeLinkItem: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome, route: "/" },
-];
-const LinkItems: Array<LinkItemProps> = [
+const NavLinks: LinkItemProps[] = [{ name: "Home", icon: FiHome, route: "/" }];
+
+const ProtectedNavLinks: LinkItemProps[] = [
   { name: "Track Times", icon: FiClock, route: "/times" },
 ];
 
-export default function Sidebar({ children }: { children: ReactNode }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export default function NavShell({ children }: { children: ReactNode }) {
   return (
-    <Box minH="100vh" bg="purple.800">
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: "none", md: "block" }}
-      />
-      <Drawer
-        autoFocus={false}
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="full"
+    <Box minH="100vh" bg="gray.900">
+      <Box
+        as="nav"
+        bg="gray.800"
+        borderBottom="1px"
+        borderColor="gray.700"
+        position="fixed"
+        top={0}
+        left={0}
+        right={0}
+        zIndex={1000}
       >
-        <DrawerContent>
-          <SidebarContent onClose={onClose} />
-        </DrawerContent>
-      </Drawer>
-      {/* mobilenav */}
-      <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="8" bg="purple.800" height="max-content">
+        <Flex
+          maxW="container.xl"
+          mx="auto"
+          px={4}
+          h="20"
+          align="center"
+          justify="space-between"
+        >
+          <HStack spacing={8} display={{ base: "none", md: "flex" }}>
+            {NavLinks.map((link) => (
+              <NavItem key={link.name} icon={link.icon} route={link.route}>
+                {link.name}
+              </NavItem>
+            ))}
+            <SignedIn>
+              {ProtectedNavLinks.map((link) => (
+                <NavItem key={link.name} icon={link.icon} route={link.route}>
+                  {link.name}
+                </NavItem>
+              ))}
+            </SignedIn>
+          </HStack>
+
+          <HStack spacing={4}>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+            <SignedOut>
+              <Link href="/sign-in">
+                <Button
+                  size="sm"
+                  bg="purple.500"
+                  color="white"
+                  _hover={{ bg: "purple.400" }}
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </SignedOut>
+          </HStack>
+        </Flex>
+      </Box>
+
+      <Box pt="20" px={6} pb={6} bg="gray.900" minH="100vh">
         <Box
-          bg="white"
+          bg="gray.800"
           rounded="lg"
-          boxShadow="2xl"
-          p="4"
-          display="flex"
-          flexDirection="column"
-          height="100%"
+          boxShadow="xl"
+          p={6}
+          maxW="container.xl"
+          mx="auto"
         >
           {children}
         </Box>
@@ -78,132 +90,37 @@ export default function Sidebar({ children }: { children: ReactNode }) {
   );
 }
 
-interface SidebarProps extends BoxProps {
-  onClose: () => void;
-}
-
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const { isLoaded, userId } = useAuth();
-  return (
-    <Box
-      transition="3s ease"
-      bg={useColorModeValue("white", "gray.900")}
-      borderRight="1px"
-      borderRightColor={useColorModeValue("gray.300", "gray.700")}
-      w={{ base: "full", md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}
-    >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
-      </Flex>
-      {HomeLinkItem.map((link) => (
-        <NavItem key={link.name} icon={link.icon} route={link.route}>
-          {link.name}
-        </NavItem>
-      ))}
-
-      {isLoaded &&
-        userId &&
-        LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon} route={link.route}>
-            {link.name}
-          </NavItem>
-        ))}
-    </Box>
-  );
-};
-
-interface NavItemProps extends FlexProps {
+interface NavItemProps {
   icon: IconType;
   children: ReactText;
   route: string;
 }
-const NavItem = ({ icon, children, route, ...rest }: NavItemProps) => {
+
+const NavItem = ({ icon, children, route }: NavItemProps) => {
   return (
     <Link
       href={route}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
-      <Flex
-        align="center"
-        p="4"
-        mx="4"
-        borderRadius="lg"
-        role="group"
+      <HStack
+        spacing={2}
+        px={3}
+        py={2}
+        borderRadius="md"
         cursor="pointer"
+        color="gray.300"
         _hover={{
-          bg: "purple.400",
+          bg: "purple.600",
           color: "white",
         }}
-        {...rest}
+        transition="all 0.2s"
       >
-        {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: "white",
-            }}
-            as={icon}
-          />
-        )}
-        {children}
-      </Flex>
-    </Link>
-  );
-};
-
-interface MobileProps extends FlexProps {
-  onOpen: () => void;
-}
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  return (
-    <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 4 }}
-      height="20"
-      alignItems="center"
-      bg={useColorModeValue("white", "gray.900")}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-      justifyContent={{ base: "space-between", md: "flex-end" }}
-      {...rest}
-    >
-      <IconButton
-        display={{ base: "flex", md: "none" }}
-        onClick={onOpen}
-        variant="outline"
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
-
-      <Text
-        display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
-
-      <HStack spacing={{ base: "0", md: "6" }}>
-        <div>
-          <SignedIn>
-            {/* Mount the UserButton component */}
-            <UserButton afterSignOutUrl="/" />
-          </SignedIn>
-          <SignedOut>
-            {/* Signed out users get sign in button */}
-            <SignInButton />
-          </SignedOut>
-        </div>
+        <Icon as={icon} boxSize={4} />
+        <Text fontSize="sm" fontWeight="medium">
+          {children}
+        </Text>
       </HStack>
-    </Flex>
+    </Link>
   );
 };

@@ -17,11 +17,8 @@
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { getAuth } from "@clerk/nextjs/server";
-import type {
-  SignedInAuthObject,
-  SignedOutAuthObject,
-} from "@clerk/nextjs/dist/api";
-import { prisma } from "../db";
+import type { SignedInAuthObject, SignedOutAuthObject } from "@clerk/backend";
+import { db } from "../db";
 
 type CreateContextOptions = {
   auth: SignedInAuthObject | SignedOutAuthObject;
@@ -40,7 +37,7 @@ type CreateContextOptions = {
 const createInnerTRPCContext = ({ auth }: CreateContextOptions) => {
   return {
     auth,
-    prisma,
+    db,
   };
 };
 
@@ -64,7 +61,12 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
-const t = initTRPC.context<typeof createTRPCContext>().create({
+type Context = {
+  auth: SignedInAuthObject | SignedOutAuthObject;
+  db: typeof db;
+};
+
+const t = initTRPC.context<Context>().create({
   transformer: superjson,
   errorFormatter({ shape }) {
     return shape;
@@ -92,7 +94,14 @@ export const createTRPCRouter = t.router;
  * tRPC API. It does not guarantee that a user querying is authorized, but you
  * can still access user session data if they are logged in.
  */
-export const publicProcedure = t.procedure;
+export const publicProcedure = t.procedure.use(({ ctx, next }) => {
+  return next({
+    ctx: {
+      auth: ctx.auth,
+      db: ctx.db,
+    },
+  });
+});
 
 /**
  * Reusable middleware that enforces users are logged in before running the
@@ -105,6 +114,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   return next({
     ctx: {
       auth: ctx.auth,
+      db: ctx.db,
     },
   });
 });

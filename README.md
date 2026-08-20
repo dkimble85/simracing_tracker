@@ -11,7 +11,7 @@ The Sim Racing Time Trackr (SRTT) is a way to track your track times not only fo
 - [Next.js](https://nextjs.org)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Clerk Auth](https://clerk.com/)
-- [Prisma](https://prisma.io)
+- [Drizzle ORM](https://orm.drizzle.team/)
 - [Postgresql - Supabase](https://supabase.com/)
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
